@@ -1,0 +1,10 @@
+---
+- name: restart amazon-ssm-agent
+  systemd: 
+    name: snap.amazon-ssm-agent.amazon-ssm-agent
+    state: restarted
+
+- name: restart ssm-agent
+  systemd:
+    name: amazon-ssm-agent
+    state: restarted

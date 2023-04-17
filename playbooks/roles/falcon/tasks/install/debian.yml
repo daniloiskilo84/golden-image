@@ -1,0 +1,4 @@
+---
+- name: "Install a .deb package distribution Ubuntu."
+  apt:  
+    deb: "{{ falcon_install_dir }}/{{ falcon_filename }}"

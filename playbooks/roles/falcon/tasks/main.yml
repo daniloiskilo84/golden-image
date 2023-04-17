@@ -1,0 +1,4 @@
+---
+- name: Install falcon sensor.
+  include_tasks: install/main.yml
+  when: falcon_install|bool

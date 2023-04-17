@@ -1,0 +1,19 @@
+---
+- name: updating CentOS cache
+  yum:
+    update_cache: yes
+
+- name: updating CentOS packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: installing extra dependencies
+  yum:
+    name:
+      - git
+      - zlib-devel
+      - mysql-devel
+      - unzip
+      - patch
+    state: present

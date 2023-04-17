@@ -1,0 +1,6 @@
+---
+ruby_installer_version: ""
+ruby_installer_url: "https://github.com/postmodern/ruby-install/archive/v{{ ruby_installer_version }}.tar.gz"
+ruby_installer_package: "/tmp/ruby-install-{{ ruby_installer_version }}.tar.gz"
+ruby_installer_package_dir: "/tmp/ruby-install-{{ ruby_installer_version }}"
+ruby_installer_basedir: /opt/ruby-install-{{ ruby_installer_version }}

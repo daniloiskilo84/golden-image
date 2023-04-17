@@ -1,0 +1,65 @@
+---
+- name: installing epel repository
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+
+#- name: syncronizing repositories caches
+#  yum:
+#    update_cache: true
+
+- name: installing dependencies
+  yum:
+    name:
+      - bzip2
+      - python2-boto
+      - python2-botocore
+      - python2-pip
+      - gcc-c++
+    state: present
+
+- name: checking Ruby installation
+  stat:
+    path: "{{ ruby_binary }}"
+  register: ruby_installation
+
+- name: download ruby installer
+  get_url:
+    url: "{{ ruby_installer_url}}"
+    dest: "{{ ruby_installer_package }}"
+  when: not ruby_installation.stat.exists
+
+- name: unpacking ruby installer
+  unarchive:
+    src: "{{ ruby_installer_package }}"
+    dest: /tmp
+    remote_src: true
+  when: not ruby_installation.stat.exists
+
+- name: installing ruby installer
+  command: "make install PREFIX={{ ruby_installer_basedir }}"
+  args:
+    chdir: "{{ ruby_installer_package_dir }}"
+  when: not ruby_installation.stat.exists
+
+- name: installing ruby
+  command: "{{ ruby_installer_basedir }}/bin/ruby-install --install-dir {{ ruby_install_prefix }}/ruby-{{ item }} ruby {{ item | mandatory }} -- --disable-install-rdoc"
+  with_items: "{{ ruby_versions }}"
+  when: not ruby_installation.stat.exists
+
+- name: linking to default version
+  shell: "ln -s {{ ruby_install_prefix }}/ruby-{{ ruby_version_default }}/bin/* {{ ruby_install_prefix }}/bin/"
+  when: not ruby_installation.stat.exists
+
+- name: linking to default version
+  shell: "ln -s {{ ruby_install_prefix }}/ruby-{{ ruby_version_default }}/bin/* /usr/bin/"
+  when: not ruby_installation.stat.exists  
+
+- name: removing ruby installer from system
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ ruby_installer_package }}"
+    - "{{ ruby_installer_package_dir }}"
+    - "{{ ruby_installer_basedir }}"

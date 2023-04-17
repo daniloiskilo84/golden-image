@@ -1,0 +1,26 @@
+---
+- name: Include Ubuntu variables.
+  include_vars: "debian.yml"
+  when: ansible_os_family == 'Debian'
+
+- name: Include CentOS variables.
+  include_vars: "centos.yml"
+  when: ansible_os_family == 'RedHat'
+
+- name: Copy falcon sensor file.
+  copy:
+    src: "{{ falcon_install_source }}/{{ falcon_filename }}"
+    dest: "{{ falcon_install_dir }}"
+
+- name: "Install falcon sensor."
+  include_tasks: "install/{{ ansible_os_family|lower }}.yml"
+
+- name: "Substituting CID."
+  command:
+    cmd: "/opt/CrowdStrike/falconctl -sf --cid={{ falcon_cid }}"
+
+- name: "Start service falcon-sensor hosts."
+  service:
+    name: falcon-sensor
+    state: started
+    enabled: yes

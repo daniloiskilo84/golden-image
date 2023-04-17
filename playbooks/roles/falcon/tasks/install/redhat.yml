@@ -1,0 +1,5 @@
+---
+- name: "Install a .rpm package distribtion CentOS."
+  yum:
+    name: "{{ falcon_install_dir }}/{{ falcon_filename }}"
+    state: present

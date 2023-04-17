@@ -1,0 +1,9 @@
+---
+# AWS cli
+aws_cli_download_dir: /tmp/awscli
+aws_cli_url_download: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+aws_cli_home: "/home/{{ usuario }}"
+aws_output_format: json
+aws_region: us-east-1
+aws_access_key_id: YOUR_ACCESS_KEY_ID
+aws_secret_access_key: YOUR_SECRET_ACCESS_KEY

@@ -1,0 +1,13 @@
+---
+# tasks file for ansible-ssm-agent
+- name: downloading package
+  get_url:
+    url: "{{ ssm_agent_url }}"
+    dest: "{{ temp_dir }}/{{ ssm_agent_package }}"
+
+- name: installing agent
+  yum:
+    name: "{{ temp_dir }}/{{ ssm_agent_package }}"
+    state: present
+  notify:
+    - restart ssm-agent

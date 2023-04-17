@@ -1,0 +1,6 @@
+---
+falcon_install: true
+falcon_install_dir: "/tmp"
+falcon_install_source: "{{ role_path }}/files"
+falcon_cid: "FACE0E4B6F9641AE9EBCB34501423D5A-BF"
+falcon_tags: ""

@@ -1,0 +1,5 @@
+---
+- name: "Install a .rpm package distribtion CentOS."
+  yum:
+    name: "{{ qualys_install_dir }}/{{ qualys_filename }}"
+    state: present

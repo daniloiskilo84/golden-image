@@ -1,0 +1,6 @@
+---
+qualys_install: true
+qualys_install_source: "{{ role_path }}/files"
+qualys_install_dir: "/tmp"
+qualys_cid: "8ef3b34f-f0ec-7b99-8075-a9e8d785f3cc"
+qualys_aid: "4ca09212-f0ed-4bd8-a5f0-5501376f087f"

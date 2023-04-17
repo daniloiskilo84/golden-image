@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  user: ec2-user
+  gather_facts: true
+
+  pre_tasks:
+    - name: gathering ec2 instance metadata
+      action: ec2_metadata_facts
+
+  roles:
+    - patch-management
+    - ssm-agent
+    - awscli
+    - ntp
+    - qualys
+    - falcon

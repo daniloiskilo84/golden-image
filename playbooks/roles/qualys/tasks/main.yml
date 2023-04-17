@@ -1,0 +1,16 @@
+---
+- name: Include CentOS variables.
+  include_vars: "redhat.yml"
+  when: ansible_os_family == 'RedHat'
+
+- name: Copy qualys sensor file.
+  copy:
+    src: "{{ qualys_install_source }}/{{ qualys_filename }}"
+    dest: "{{ qualys_install_dir }}"
+
+- name: "Install qualys sensor."
+  include_tasks: "{{ ansible_os_family|lower }}.yml"
+
+- name: "Activating QualysCloudAgent"
+  command:
+    cmd: "/usr/local/qualys/cloud-agent/bin/qualys-cloud-agent.sh ActivationId={{ qualys_aid }} CustomerId={{ qualys_cid }}"

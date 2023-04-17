@@ -1,0 +1,7 @@
+---
+- name: Install "amazon-ssm-agent" with option --classic.
+  snap:
+    name: amazon-ssm-agent
+    classic: yes
+  notify:
+    - restart amazon-ssm-agent
